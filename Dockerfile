@@ -8,6 +8,7 @@ RUN mkdir -p /app /tmp/src \
     && cat /tmp/deploy_bundle_source.tgz.part-* > /tmp/deploy_bundle_source.tgz \
     && tar -xzf /tmp/deploy_bundle_source.tgz -C /tmp/src \
     && cp -a /tmp/src/tlpf-b01-research-engine/. /app/ \
+    && node -e "const fs=require('fs');const path='/app/buildouts/buildout_01_research_engine/desktop_app/server.js';let source=fs.readFileSync(path,'utf8');source=source.replace('const acceptEncoding = String(req.headers[\"accept-encoding\"] || \"\");','const acceptEncoding = String(req?.headers?.[\"accept-encoding\"] || \"\");');source=source.replace('if ((req.headers[\"if-none-match\"] || \"\") === etag) {','if ((req?.headers?.[\"if-none-match\"] || \"\") === etag) {');fs.writeFileSync(path,source);" \
     && rm -rf /tmp/src /tmp/deploy_bundle_source.tgz /tmp/deploy_bundle_source.tgz.part-* \
     && cd /app \
     && npm install --omit=dev
