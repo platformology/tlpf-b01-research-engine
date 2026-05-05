@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: tlpf-b01-research-engine
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: B01_APP_PROFILE
+        value: test
+      - key: B01_APP_AI_MODE
+        value: mock
+      - key: B01_DEPLOYMENT_TARGET
+        value: render_server_test
+      - key: B01_APP_OUTPUT_ROOT
+        value: /tmp/b01/outputs
+      - key: B01_APP_STATE_ROOT
+        value: /tmp/b01/state
+      - key: B01_APP_HOST
+        value: 0.0.0.0
+      - key: B01_SECRET_KEY
+        generateValue: true
