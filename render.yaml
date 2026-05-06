@@ -2,21 +2,65 @@ services:
   - type: web
     name: tlpf-b01-research-engine
     runtime: docker
+    plan: starter
+    region: oregon
+    branch: main
+    autoDeploy: true
     dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /api/health
+    disk:
+      name: b01-business-analysis-engine-disk
+      mountPath: /var/lib/b01
+      sizeGB: 10
     envVars:
       - key: B01_APP_PROFILE
-        value: test
+        value: production
+      - key: B01_APP_BASE_URL
+        value: https://tlpf-b01-research-engine.onrender.com
+      - key: B01_APP_ALLOWED_ORIGINS
+        value: https://tlpf-b01-research-engine.onrender.com
+      - key: B01_APP_ENABLE_TRUSTED_LOCAL_FALLBACK
+        value: false
+      - key: B01_APP_ENABLE_MANAGEMENT_SURFACES
+        value: false
       - key: B01_APP_AI_MODE
-        value: mock
+        value: disabled
+      - key: B01_DATABASE_URL
+        fromDatabase:
+          name: b01-business-analysis-engine-db
+          property: connectionString
+      - key: B01_DATABASE_CLIENT_MODULE
+        value: buildouts/buildout_01_research_engine/desktop_app/provider_bridges/database-client.cjs
+      - key: B01_OBJECT_STORAGE_PROVIDER
+        value: render_persistent_disk
+      - key: B01_OBJECT_STORAGE_CLIENT_MODULE
+        value: buildouts/buildout_01_research_engine/desktop_app/provider_bridges/object-storage-client.cjs
+      - key: B01_AUTH_PROVIDER
+        value: local_passwordless_bridge
+      - key: B01_AUTH_CLIENT_MODULE
+        value: buildouts/buildout_01_research_engine/desktop_app/provider_bridges/local_passwordless_auth_client.cjs
+      - key: B01_AUTH_CALLBACK_URL
+        value: https://tlpf-b01-research-engine.onrender.com/api/world-class/auth/callback
+      - key: B01_CONNECTOR_INGEST_TOKEN
+        generateValue: true
+      - key: B01_MONITORING_PROVIDER
+        value: render_observability
       - key: B01_DEPLOYMENT_TARGET
-        value: render_server_test
+        value: render_production
+      - key: B01_LAUNCH_APPROVED
+        value: true
       - key: B01_APP_OUTPUT_ROOT
-        value: /tmp/b01/outputs
+        value: /var/lib/b01/outputs
       - key: B01_APP_STATE_ROOT
-        value: /tmp/b01/state
+        value: /var/lib/b01/state
       - key: B01_APP_HOST
         value: 0.0.0.0
       - key: B01_SECRET_KEY
         generateValue: true
+databases:
+  - name: b01-business-analysis-engine-db
+    region: oregon
+    plan: free
+    databaseName: b01_production
+    user: b01_runtime
