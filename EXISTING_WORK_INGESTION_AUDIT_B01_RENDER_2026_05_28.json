@@ -39,6 +39,12 @@
       "classification": "wrap_with_adapter",
       "status": "wired",
       "notes": "Existing hosted product layer kept active; early health/status routes added to avoid hung request path and expose current engine proof expectations."
+    },
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/desktop_app/storageAdapter.js",
+      "classification": "wrap_with_adapter",
+      "status": "wired",
+      "notes": "Existing local JSON runtime kept active; lock directory creation and queue release path repaired so authorized hosted admin routes cannot jam after a failed lock acquisition."
     }
   ],
   "foundData": [],
@@ -95,7 +101,9 @@
   "wirePlan": [
     "Serve /api/health and /api/status from hosted product layer without calling the hanging rate-limit/service path.",
     "Expose current native-required engine path and proof commands in hosted health output.",
-    "Install current B01 source as client_ready_engine inside the deploy bundle."
+    "Install current B01 source as client_ready_engine inside the deploy bundle.",
+    "Serve static root assets before API rate limiting and preserve request headers for ETag/compression handling.",
+    "Allow non-production hosted admin smoke access through the existing B01_SECRET_KEY so protected operations routes can be tested without opening production auth."
   ],
   "proofPlan": [
     "node --check buildouts/buildout_01_research_engine/desktop_app/server.js",
@@ -209,6 +217,36 @@
       "command": "curl https://tlpf-b01-research-engine-2.onrender.com/health/ready",
       "status": "passed",
       "evidence": "Returned ok true and b01_hosted_runtime_ready after Render routing finished warming."
+    },
+    {
+      "command": "node --check buildouts/buildout_01_research_engine/desktop_app/server.js && node --check buildouts/buildout_01_research_engine/desktop_app/config.js && node --check buildouts/buildout_01_research_engine/desktop_app/storageAdapter.js",
+      "status": "passed",
+      "evidence": "Static serving, non-production admin bootstrap, and local JSON lock repair compile cleanly."
+    },
+    {
+      "command": "curl http://127.0.0.1:8785/api/world-class/operations with x-b01-admin-key",
+      "status": "passed",
+      "evidence": "Returned 200 WORLD_CLASS_OPERATIONS_READY; local JSON lock path and admin route guard both exercised."
+    },
+    {
+      "command": "curl http://127.0.0.1:8785/api/world-class/production-doctor with x-b01-admin-key",
+      "status": "passed",
+      "evidence": "Returned 200 PUBLIC_LAUNCH_LOCKED with production provider blockers preserved."
+    },
+    {
+      "command": "curl http://127.0.0.1:8785/api/world-class/auth/sessions with x-b01-admin-key",
+      "status": "passed",
+      "evidence": "Returned 200 AUTH_SESSION_CREATED_LOCAL and wrote audited owner-session record."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/",
+      "status": "passed",
+      "evidence": "Returned HTTP 200 text/html from live Render deploy 519a28e47ba0456961eaf60683c312b196307037 after static entrypoint fix."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/styles.css",
+      "status": "passed",
+      "evidence": "Returned HTTP 200 text/css from live Render deploy 519a28e47ba0456961eaf60683c312b196307037 after static header preservation fix."
     }
   ],
   "falseReadyClaimsBlocked": true,
