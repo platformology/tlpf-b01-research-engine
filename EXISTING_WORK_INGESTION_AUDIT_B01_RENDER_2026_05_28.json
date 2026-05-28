@@ -247,6 +247,51 @@
       "command": "curl https://tlpf-b01-research-engine-2.onrender.com/styles.css",
       "status": "passed",
       "evidence": "Returned HTTP 200 text/css from live Render deploy 519a28e47ba0456961eaf60683c312b196307037 after static header preservation fix."
+    },
+    {
+      "command": "render deploys list srv-d8cc4857vvec73fkjnmg",
+      "status": "passed",
+      "evidence": "Deploy dep-d8cck5uk1jcs738qoev0 is live from commit 8d0ea764eaf8c77b8c435b8688565ccc160c41f0."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/",
+      "status": "passed",
+      "evidence": "Returned HTTP 200 text/html from the final live Render deploy."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/health && curl https://tlpf-b01-research-engine-2.onrender.com/api/status && curl https://tlpf-b01-research-engine-2.onrender.com/health/ready",
+      "status": "passed",
+      "evidence": "Hosted health/status/ready routes returned 200. Health identifies B01 Business Deconstruction / Research Engine, profile test, current_engine_path client_ready_engine, and false_ready_claims_blocked true."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/sample-intake && curl https://tlpf-b01-research-engine-2.onrender.com/api/research-completion-dashboard && curl https://tlpf-b01-research-engine-2.onrender.com/api/shared-integration/health",
+      "status": "passed",
+      "evidence": "Hosted product sample, dashboard, and shared-integration routes returned HTTP 200 application/json."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/world-class/operations without admin key",
+      "status": "passed",
+      "evidence": "Returned HTTP 403 application/json, proving protected operations routes are not public."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/world-class/operations with non-production staging admin key",
+      "status": "passed",
+      "evidence": "Returned HTTP 200 WORLD_CLASS_OPERATIONS_READY with public_launch_allowed false."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/world-class/production-doctor with non-production staging admin key",
+      "status": "passed",
+      "evidence": "Returned HTTP 200 PUBLIC_LAUNCH_LOCKED with database, object storage, auth, and monitoring still honestly marked required for production."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/world-class/product-surfaces with non-production staging admin key",
+      "status": "passed",
+      "evidence": "Returned HTTP 200 PRODUCT_SURFACE_RUNTIME_READY."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/world-class/auth/sessions with non-production staging admin key",
+      "status": "passed",
+      "evidence": "Returned HTTP 200 AUTH_SESSION_CREATED_LOCAL. Session token was not committed or reported."
     }
   ],
   "falseReadyClaimsBlocked": true,
