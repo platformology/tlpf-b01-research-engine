@@ -1,0 +1,203 @@
+{
+  "topic": "b01-persona-engine-feed-audit",
+  "searchedLocations": [
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_02_buyer_persona_creation_engine",
+    "/Users/mdrew/Documents/New project/out/platform_engine_depth/persona_engine",
+    "/Users/mdrew/Documents/New project/out/author_program_chain/full_pipeline/persona_engine",
+    "/Users/mdrew/Documents",
+    "/Users/mdrew/Downloads",
+    "/Users/mdrew/Desktop",
+    "/private/tmp"
+  ],
+  "foundBundles": [
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/b01_to_b02_persona_feed_package",
+      "classification": "reuse_directly",
+      "status": "present_installed_assembled",
+      "notes": "B01-to-B02 persona feed package with dataset, scorecard, customer-language classifications, blockers, trust requirements, and starter context."
+    },
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/promote_a_book_bookretreat_research_to_persona_scenario_v2",
+      "classification": "reuse_directly",
+      "status": "present_installed_assembled",
+      "notes": "Deep Promote A Book / BookRetreat persona and scenario planning intelligence package."
+    },
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_02_buyer_persona_creation_engine",
+      "classification": "reuse_directly",
+      "status": "present_installed_assembled",
+      "notes": "B02 buyer persona creation engine contracts, gates, validation plans, outputs, and downstream planning feeds."
+    },
+    {
+      "path": "/Users/mdrew/Documents/New project/out/platform_engine_depth/persona_engine",
+      "classification": "use_as_reference",
+      "status": "proven_generated_output",
+      "notes": "Standalone persona engine preview output: deterministic, wrapper_only_count 0, publish_ready false by safety gate."
+    },
+    {
+      "path": "/Users/mdrew/Documents/New project/out/author_program_chain/full_pipeline/persona_engine",
+      "classification": "use_as_reference",
+      "status": "proven_generated_output_with_blockers",
+      "notes": "Full author-program persona engine output. Planning outputs are rich, but manifest status is blocked for final publication because audience/final artifact/quality gates are not fully cleared."
+    }
+  ],
+  "foundCode": [
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/src/research/personaIntelligence.js",
+      "classification": "reuse_directly",
+      "status": "present_installed_assembled",
+      "notes": "Deterministic B01 persona-intelligence builders for problem maps, buying-stage maps, visual cues, competitor/customer context, and client-current-state fit audits."
+    }
+  ],
+  "foundData": [
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/deep_persona_payloads.json",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/b01_to_b02_persona_feed_package/PERSONA_INPUT_DATASET.json",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/promote_a_book_bookretreat_research_to_persona_scenario_v2/DEEP_PERSONA_HYPOTHESIS_DOSSIERS.json",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/b01_to_b02_persona_feed_package/B02_HANDOFF_SCORECARD.json",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_02_buyer_persona_creation_engine/closeout/B02_RELEASE_STATUS.json"
+  ],
+  "foundDocs": [
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/persona_segment_evidence.md",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/customer_signal_source_map.md",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/customer_language_patterns.md",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/M03_GOVERNANCE_HANDOFF.md",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_02_buyer_persona_creation_engine/operating_base/B02_PERSONA_HYPOTHESIS_SCHEMA.md",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_02_buyer_persona_creation_engine/operating_base/B02_OUTPUT_CONTRACT.md",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_02_buyer_persona_creation_engine/method_kernel/PERSONA_RELEASE_GATE.md"
+  ],
+  "foundProofs": [
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/b01_to_b02_persona_feed_package/B02_HANDOFF_SCORECARD.json",
+      "status": "passed_with_controlled_blockers",
+      "readiness_score": 96
+    },
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_02_buyer_persona_creation_engine/closeout/B02_RELEASE_STATUS.json",
+      "status": "planning_ready_final_persona_not_ready",
+      "score": 96
+    }
+  ],
+  "foundFixtures": [],
+  "foundScripts": [],
+  "foundSchemas": [
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_02_buyer_persona_creation_engine/operating_base/B02_PERSONA_HYPOTHESIS_SCHEMA.md",
+      "required_fields": [
+        "persona_hypothesis_id",
+        "provisional_name",
+        "classification",
+        "role_or_identity",
+        "current_state",
+        "desired_state",
+        "business_model",
+        "book_stage",
+        "platform_stage",
+        "authority_stage",
+        "need_stage",
+        "awareness_stage",
+        "trust_stage",
+        "conversion_stage",
+        "problem",
+        "desired_outcome",
+        "buying_trigger",
+        "objections",
+        "trust_requirements",
+        "offer_fit",
+        "evidence_basis",
+        "source_classes",
+        "unsupported_assumptions",
+        "validation_questions",
+        "blocked_claims",
+        "readiness_score"
+      ]
+    }
+  ],
+  "foundGeneratedOutputs": [
+    "/Users/mdrew/Documents/New project/out/platform_engine_depth/persona_engine/persona_engine_manifest.json",
+    "/Users/mdrew/Documents/New project/out/author_program_chain/full_pipeline/persona_engine/persona_engine_manifest.json"
+  ],
+  "activeEntryPoints": [
+    "B01 feed package: buildouts/buildout_01_research_engine/b01_to_b02_persona_feed_package/PERSONA_INPUT_DATASET.json",
+    "B01 deep dossiers: buildouts/buildout_01_research_engine/promote_a_book_bookretreat_research_to_persona_scenario_v2/DEEP_PERSONA_HYPOTHESIS_DOSSIERS.json",
+    "B02 planning status: buildouts/buildout_02_buyer_persona_creation_engine/closeout/B02_RELEASE_STATUS.json",
+    "Live B01 service: https://tlpf-b01-research-engine-2.onrender.com"
+  ],
+  "activeSystemCurrentlyUses": [
+    "B01 persona-safe research feed with controlled blockers.",
+    "B01 deep persona hypothesis dossiers.",
+    "B02 operating-base schema and release gates.",
+    "B02 final release status showing planning_ready true and final_persona_ready false."
+  ],
+  "activeSystemBypasses": [
+    {
+      "item": "/Users/mdrew/Documents/New project/out/author_program_chain/full_pipeline/persona_engine",
+      "reason": "This output is a downstream generated persona-engine proof/reference, not the active B01-to-B02 feed. It is blocked for final publication by its own manifest and should not replace B01's controlled planning feed."
+    }
+  ],
+  "reuseClassifications": [
+    "reuse_directly",
+    "use_as_reference"
+  ],
+  "installPlan": [
+    "No new install needed for B01 persona feed; B01-to-B02 packages are already present in the active deployed source tree.",
+    "Do not promote blocked final persona outputs into B01 production readiness."
+  ],
+  "wirePlan": [
+    "Treat B01 as 100% feeding the persona engine for approved internal planning use.",
+    "Preserve controlled blockers for final personas: direct customer voice approval, current offer/pricing confirmation, proof/testimonial rights, claim clearance, and human release approval.",
+    "Do not claim final-persona readiness from B01 alone."
+  ],
+  "proofPlan": [
+    "Validate B02_HANDOFF_SCORECARD readiness score and gate status.",
+    "Validate B02_RELEASE_STATUS planning_ready and final_persona_ready flags.",
+    "Verify live B01 remains production-ready while public/protected routes stay gated."
+  ],
+  "blockedExistingWork": [
+    {
+      "id": "final_persona_release",
+      "classification": "blocked_external_dependency",
+      "status": "controlled_blocker_preserved",
+      "evidence": "B02 release status says planning_ready true, final_persona_ready false, final_personas_created false, claims_approved false, public_copy_created false, live_systems_touched false."
+    },
+    {
+      "id": "author_program_persona_engine_final_publish",
+      "classification": "blocked_runtime_failure",
+      "status": "blocked_by_own_manifest",
+      "evidence": "Full-pipeline persona_engine_manifest status is blocked with missing audience, quality_score_gate_blocked, and final_artifact_validation_blocked."
+    }
+  ],
+  "newCodeAllowedOnlyFor": [],
+  "personaEngineNeeds": {
+    "planningGateNeeds": [
+      "source evidence",
+      "language labels",
+      "problem map",
+      "trust map",
+      "offer fit",
+      "blockers preserved",
+      "score 95+ or clear reason lower"
+    ],
+    "finalPersonaGateNeeds": [
+      "segment boundary validated",
+      "direct customer voice approved or disclosed absent",
+      "current offer fit confirmed",
+      "proof and claim controls passed",
+      "pricing/current offer claims cleared or absent",
+      "no blocked claims",
+      "no final persona quote invented",
+      "QA and red-team passed",
+      "human release approval"
+    ]
+  },
+  "feedingStatus": {
+    "planningFeed": "100_percent_for_approved_planning_lane",
+    "finalPersonaFeed": "not_100_percent_by_design_external_blockers_preserved",
+    "b01HandoffScore": 96,
+    "b02PlanningReady": true,
+    "b02FinalPersonaReady": false,
+    "falseReadyClaimsBlocked": true
+  },
+  "createdAt": "2026-05-28T23:34:00Z"
+}
