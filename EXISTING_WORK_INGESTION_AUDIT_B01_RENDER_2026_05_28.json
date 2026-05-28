@@ -72,7 +72,8 @@
     "npm run runtime:b01",
     "buildouts/buildout_01_research_engine/desktop_app/managedRuntime.js",
     "buildouts/buildout_01_research_engine/desktop_app/server.js",
-    "client_ready_engine/src/cli/b01_cli.js"
+    "client_ready_engine/src/cli/b01_cli.js",
+    "Render service srv-d8cc4857vvec73fkjnmg at https://tlpf-b01-research-engine-2.onrender.com"
   ],
   "activeSystemCurrentlyUses": [
     "Existing hosted B01 product layer from tlpf-b01-research-engine deploy bundle.",
@@ -110,6 +111,12 @@
       "classification": "blocked_external_dependency",
       "status": "blocked_by_render_system_suspension",
       "evidence": "Render service srv-d7t4q3l0lvsc73d7t870 is suspended/stuck_crashlooping. Render CLI deploy returns 'cannot deploy suspended service'. Render API POST /v1/services/srv-d7t4q3l0lvsc73d7t870/resume returns HTTP 400: only services suspended by a user can be resumed. Live endpoint returns HTTP 503 x-render-routing: suspend-by-user."
+    },
+    {
+      "id": "old_render_service_replaced_for_smoke",
+      "classification": "superseded",
+      "status": "resolved_by_new_render_service",
+      "evidence": "New Render service srv-d8cc4857vvec73fkjnmg was created from the fixed GitHub repo. It runs the B01 staged hosting profile for smoke validation because production profile correctly requires approved database, object storage, auth, monitoring, deployment, and secret bindings."
     }
   ],
   "newCodeAllowedOnlyFor": [
@@ -182,6 +189,26 @@
       "command": "curl https://tlpf-b01-research-engine.onrender.com/api/health",
       "status": "blocked",
       "evidence": "HTTP 503 Service Suspended from Render routing layer before application code runs."
+    },
+    {
+      "command": "render deploys create srv-d8cc4857vvec73fkjnmg",
+      "status": "passed",
+      "evidence": "Deploy dep-d8cc5vn40ujc738oegeg went live from commit 02f9f5b860439e3c2b2ec2c77983767d4f64a96c."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/health",
+      "status": "passed",
+      "evidence": "Returned ok true, status b01_hosted_runtime_ready, program B01 Business Deconstruction / Research Engine, profile test, current_engine_path client_ready_engine."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/status",
+      "status": "passed",
+      "evidence": "Returned config_status PASS, safe_to_serve true, provider bindings not configured for production, deployment render_managed_runtime."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/health/ready",
+      "status": "passed",
+      "evidence": "Returned ok true and b01_hosted_runtime_ready after Render routing finished warming."
     }
   ],
   "falseReadyClaimsBlocked": true,
