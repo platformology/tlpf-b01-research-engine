@@ -1,0 +1,169 @@
+{
+  "topic": "b01-render-service-repair",
+  "searchedLocations": [
+    "/Users/mdrew/Documents/New project/b01-research-engine",
+    "/Users/mdrew/Documents/New project/platform-ops/source-packages/b01-research-engine",
+    "/Users/mdrew/Documents/New project/b01-engine-ultimate-code/b01-research-engine",
+    "/Users/mdrew/Documents/New project/codex-total-engine-code-final/b01-research-engine",
+    "/Users/mdrew/Documents/New project/project-clients/b01-research-engine",
+    "/Users/mdrew/Documents/New project/.worktrees/*/b01-research-engine",
+    "/Users/mdrew/Downloads",
+    "/Users/mdrew/Desktop",
+    "/private/tmp/tlpf-b01-research-engine-render-fix",
+    "/private/tmp/tlpf-b01-current-deploy-src",
+    "Render service srv-d7t4q3l0lvsc73d7t870"
+  ],
+  "foundBundles": [
+    {
+      "path": "/private/tmp/tlpf-b01-research-engine-render-fix/deploy_bundle_source.tgz.part-aa..part-ac",
+      "classification": "install_and_wire",
+      "status": "assembled",
+      "notes": "Existing Render deployment source bundle for tlpf-b01-research-engine."
+    },
+    {
+      "path": "/private/tmp/tlpf-b01-research-engine-render-fix/overlay_bundle.tgz.base64",
+      "classification": "install_and_wire",
+      "status": "superseded",
+      "notes": "Original overlay could overwrite the patched hosted server. Replaced in the deploy shell with a valid empty overlay because the refreshed source bundle now carries the active hosted product layer."
+    }
+  ],
+  "foundCode": [
+    {
+      "path": "/Users/mdrew/Documents/New project/b01-research-engine",
+      "classification": "promote_to_active_engine",
+      "status": "wired",
+      "notes": "Current native-required B01 package copied into client_ready_engine for hosted deployment traceability."
+    },
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/desktop_app/server.js",
+      "classification": "wrap_with_adapter",
+      "status": "wired",
+      "notes": "Existing hosted product layer kept active; early health/status routes added to avoid hung request path and expose current engine proof expectations."
+    }
+  ],
+  "foundData": [],
+  "foundDocs": [
+    "/private/tmp/tlpf-b01-research-engine-render-fix/README.md",
+    "/private/tmp/tlpf-b01-research-engine-render-fix/render.yaml",
+    "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/RENDER_DEPLOYMENT.md"
+  ],
+  "foundProofs": [
+    "/Users/mdrew/Documents/New project/b01-research-engine/launch-artifacts/2026-05-28_native_required",
+    "/Users/mdrew/Documents/New project/b01-research-engine/out"
+  ],
+  "foundFixtures": [
+    "/Users/mdrew/Documents/New project/b01-research-engine/examples",
+    "/Users/mdrew/Documents/New project/b01-research-engine/tests"
+  ],
+  "foundScripts": [
+    "npm run proof:all-client-ready",
+    "npm run proof:native-esm",
+    "npm run proof:native-required",
+    "npm run proof:client-ready-native-required",
+    "npm run runtime:b01"
+  ],
+  "foundSchemas": [
+    "/Users/mdrew/Documents/New project/b01-research-engine/schemas"
+  ],
+  "foundGeneratedOutputs": [
+    "/Users/mdrew/Documents/New project/b01-research-engine/launch-artifacts"
+  ],
+  "activeEntryPoints": [
+    "npm run runtime:b01",
+    "buildouts/buildout_01_research_engine/desktop_app/managedRuntime.js",
+    "buildouts/buildout_01_research_engine/desktop_app/server.js",
+    "client_ready_engine/src/cli/b01_cli.js"
+  ],
+  "activeSystemCurrentlyUses": [
+    "Existing hosted B01 product layer from tlpf-b01-research-engine deploy bundle.",
+    "Current native-required B01 package under client_ready_engine."
+  ],
+  "activeSystemBypasses": [],
+  "reuseClassifications": [
+    "install_and_wire",
+    "promote_to_active_engine",
+    "wrap_with_adapter"
+  ],
+  "installPlan": [
+    "Regenerate deploy bundle from assembled hosted source tree.",
+    "Keep Render Docker shell and blueprint.",
+    "Install the embedded client_ready_engine dependencies during Docker build.",
+    "Replace the legacy overlay with an empty valid overlay so it cannot overwrite the current hosted product layer.",
+    "Push refreshed split bundle to platformology/tlpf-b01-research-engine."
+  ],
+  "wirePlan": [
+    "Serve /api/health and /api/status from hosted product layer without calling the hanging rate-limit/service path.",
+    "Expose current native-required engine path and proof commands in hosted health output.",
+    "Install current B01 source as client_ready_engine inside the deploy bundle."
+  ],
+  "proofPlan": [
+    "node --check buildouts/buildout_01_research_engine/desktop_app/server.js",
+    "npm --prefix client_ready_engine install",
+    "npm --prefix client_ready_engine run proof:client-ready-native-required",
+    "curl /api/health locally",
+    "Render deploy status live",
+    "curl https://tlpf-b01-research-engine.onrender.com/api/health"
+  ],
+  "blockedExistingWork": [
+    {
+      "id": "render_service_suspended",
+      "classification": "blocked_external_dependency",
+      "status": "in_progress",
+      "evidence": "Render service srv-d7t4q3l0lvsc73d7t870 is suspended/stuck_crashlooping before redeploy."
+    }
+  ],
+  "newCodeAllowedOnlyFor": [
+    "hosted health/status adapter",
+    "deployment receipt"
+  ],
+  "existingWorkIngested": [
+    "/Users/mdrew/Documents/New project/b01-research-engine",
+    "/private/tmp/tlpf-b01-research-engine-render-fix/deploy_bundle_source.tgz.part-*",
+    "/private/tmp/tlpf-b01-research-engine-render-fix/overlay_bundle.tgz.base64"
+  ],
+  "deepImplementationsUsed": [
+    "client_ready_engine/native-esm/b01-research-engine",
+    "client_ready_engine/src/orchestrator.js",
+    "client_ready_engine/src/cli/b01_cli.js",
+    "buildouts/buildout_01_research_engine/desktop_app/server.js"
+  ],
+  "sourceBundlesUsed": [
+    "/private/tmp/tlpf-b01-research-engine-render-fix/deploy_bundle_source.tgz.part-*",
+    "/private/tmp/tlpf-b01-research-engine-render-fix/overlay_bundle.tgz.base64"
+  ],
+  "activeEntryPoint": "npm run runtime:b01",
+  "existingWorkBypassed": [],
+  "bypassBlockers": [],
+  "proofs": [
+    {
+      "command": "node --check buildouts/buildout_01_research_engine/desktop_app/server.js",
+      "status": "passed"
+    },
+    {
+      "command": "npm --prefix client_ready_engine install",
+      "status": "passed"
+    },
+    {
+      "command": "npm --prefix client_ready_engine run proof:client-ready-native-required",
+      "status": "passed",
+      "evidence": {
+        "npm_test": "52 pass / 0 fail",
+        "test_client_ready": "31 pass / 0 fail",
+        "native_esm": "67 pass / 0 fail",
+        "native_required": "passed",
+        "native_engine_count": 7,
+        "native_artifact_count": 44
+      }
+    },
+    {
+      "command": "curl http://127.0.0.1:8781/api/health",
+      "status": "passed"
+    },
+    {
+      "command": "curl http://127.0.0.1:8781/api/status",
+      "status": "passed"
+    }
+  ],
+  "falseReadyClaimsBlocked": true,
+  "createdAt": "2026-05-28T22:08:16Z"
+}

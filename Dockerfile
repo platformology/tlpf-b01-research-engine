@@ -13,7 +13,8 @@ RUN mkdir -p /app /tmp/src \
     && tar -xzf /tmp/overlay_bundle.tgz -C /app \
     && rm -rf /tmp/src /tmp/deploy_bundle_source.tgz /tmp/deploy_bundle_source.tgz.part-* /tmp/overlay_bundle.tgz /tmp/overlay_bundle.tgz.base64 \
     && cd /app \
-    && npm install --omit=dev
+    && npm install --omit=dev \
+    && if [ -f /app/client_ready_engine/package.json ]; then npm --prefix /app/client_ready_engine install --omit=dev; fi
 
 WORKDIR /app
 
