@@ -9,6 +9,7 @@
     "/Users/mdrew/Documents/New project/.worktrees/*/b01-research-engine",
     "/Users/mdrew/Downloads",
     "/Users/mdrew/Desktop",
+    "/Users/mdrew/Documents/New project.backup-20260519/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/desktop_app/provider_bridges",
     "/private/tmp/tlpf-b01-research-engine-render-fix",
     "/private/tmp/tlpf-b01-current-deploy-src",
     "Render service srv-d7t4q3l0lvsc73d7t870"
@@ -45,6 +46,24 @@
       "classification": "wrap_with_adapter",
       "status": "wired",
       "notes": "Existing local JSON runtime kept active; lock directory creation and queue release path repaired so authorized hosted admin routes cannot jam after a failed lock acquisition."
+    },
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/desktop_app/provider_bridges/database-client.cjs",
+      "classification": "install_and_wire",
+      "status": "wired",
+      "notes": "Existing user-supplied database provider bridge copied from the 2026-05-19 backup and wired through B01_DATABASE_CLIENT_MODULE. Production doctor resolves it as postgres_client with createDatabaseClient."
+    },
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/desktop_app/provider_bridges/object-storage-client.cjs",
+      "classification": "install_and_wire",
+      "status": "wired",
+      "notes": "Existing user-supplied object storage bridge copied from the 2026-05-19 backup and wired through B01_OBJECT_STORAGE_CLIENT_MODULE with Render persistent disk mounted at /var/lib/b01."
+    },
+    {
+      "path": "/private/tmp/tlpf-b01-current-deploy-src/tlpf-b01-research-engine/buildouts/buildout_01_research_engine/desktop_app/provider_bridges/local_passwordless_auth_client.cjs",
+      "classification": "install_and_wire",
+      "status": "wired",
+      "notes": "Existing user-supplied passwordless auth provider bridge copied from the 2026-05-19 backup and wired through B01_AUTH_CLIENT_MODULE. Live auth start/callback proof passed with a secure production session cookie."
     }
   ],
   "foundData": [],
@@ -83,7 +102,8 @@
   ],
   "activeSystemCurrentlyUses": [
     "Existing hosted B01 product layer from tlpf-b01-research-engine deploy bundle.",
-    "Current native-required B01 package under client_ready_engine."
+    "Current native-required B01 package under client_ready_engine.",
+    "Existing provider bridges for database, object storage, and local passwordless auth from the 2026-05-19 backup."
   ],
   "activeSystemBypasses": [],
   "reuseClassifications": [
@@ -96,14 +116,18 @@
     "Keep Render Docker shell and blueprint.",
     "Install the embedded client_ready_engine dependencies during Docker build.",
     "Replace the legacy overlay with an empty valid overlay so it cannot overwrite the current hosted product layer.",
-    "Push refreshed split bundle to platformology/tlpf-b01-research-engine."
+    "Push refreshed split bundle to platformology/tlpf-b01-research-engine.",
+    "Install pg dependency for the database provider bridge.",
+    "Attach Render persistent disk to the v2 service at /var/lib/b01."
   ],
   "wirePlan": [
     "Serve /api/health and /api/status from hosted product layer without calling the hanging rate-limit/service path.",
     "Expose current native-required engine path and proof commands in hosted health output.",
     "Install current B01 source as client_ready_engine inside the deploy bundle.",
     "Serve static root assets before API rate limiting and preserve request headers for ETag/compression handling.",
-    "Allow non-production hosted admin smoke access through the existing B01_SECRET_KEY so protected operations routes can be tested without opening production auth."
+    "Allow non-production hosted admin smoke access through the existing B01_SECRET_KEY so protected operations routes can be tested without opening production auth.",
+    "Wire B01_DATABASE_CLIENT_MODULE, B01_OBJECT_STORAGE_CLIENT_MODULE, and B01_AUTH_CLIENT_MODULE to the ingested provider bridge modules.",
+    "Run production auth start/callback through the provider bridge instead of the non-production admin-key shortcut."
   ],
   "proofPlan": [
     "node --check buildouts/buildout_01_research_engine/desktop_app/server.js",
@@ -140,7 +164,10 @@
     "client_ready_engine/native-esm/b01-research-engine",
     "client_ready_engine/src/orchestrator.js",
     "client_ready_engine/src/cli/b01_cli.js",
-    "buildouts/buildout_01_research_engine/desktop_app/server.js"
+    "buildouts/buildout_01_research_engine/desktop_app/server.js",
+    "buildouts/buildout_01_research_engine/desktop_app/provider_bridges/database-client.cjs",
+    "buildouts/buildout_01_research_engine/desktop_app/provider_bridges/object-storage-client.cjs",
+    "buildouts/buildout_01_research_engine/desktop_app/provider_bridges/local_passwordless_auth_client.cjs"
   ],
   "sourceBundlesUsed": [
     "/private/tmp/tlpf-b01-research-engine-render-fix/deploy_bundle_source.tgz.part-*",
@@ -292,6 +319,41 @@
       "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/world-class/auth/sessions with non-production staging admin key",
       "status": "passed",
       "evidence": "Returned HTTP 200 AUTH_SESSION_CREATED_LOCAL. Session token was not committed or reported."
+    },
+    {
+      "command": "render deploys list srv-d8cc4857vvec73fkjnmg",
+      "status": "passed",
+      "evidence": "Deploy dep-d8ccrrrnjh4c73ejap0g is live from commit e743c9c29e2ae835b46f023ae28e28f46b1c679c."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/ && curl https://tlpf-b01-research-engine-2.onrender.com/api/health && curl https://tlpf-b01-research-engine-2.onrender.com/api/status && curl https://tlpf-b01-research-engine-2.onrender.com/health/ready",
+      "status": "passed",
+      "evidence": "Live production routes returned HTTP 200. Status reports profile production, config_status PASS, safe_to_serve true, and provider bindings configured for database, render_persistent_disk object storage, local_passwordless_bridge auth, render_observability monitoring, and render_production deployment."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/world-class/auth/start and callback",
+      "status": "passed",
+      "evidence": "Auth start returned AUTH_PROVIDER_START_READY for local_passwordless_bridge. Callback returned HTTP 302 and set a secure HttpOnly SameSite session cookie. Secret values and cookie contents are intentionally not recorded."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/world-class/production-doctor with production auth session",
+      "status": "passed",
+      "evidence": "Returned HTTP 200 PRODUCTION_READY with 14/14 checks passing. Runtime resolved postgres_client, render_persistent_disk, local_passwordless_bridge, render_observability, and render_production modules/contracts."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/world-class/operations with production auth session",
+      "status": "passed",
+      "evidence": "Returned HTTP 200 WORLD_CLASS_OPERATIONS_READY after production auth. Counts include provider-backed audit, telemetry, connector, contract, deployment, worker, and rate-limit runtime records."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine-2.onrender.com/api/world-class/product-surfaces and /api/world-class/auth/providers with production auth session",
+      "status": "passed",
+      "evidence": "Returned HTTP 200 PRODUCT_SURFACE_RUNTIME_READY and AUTH_PROVIDER_RUNTIME_READY."
+    },
+    {
+      "command": "render deploys create srv-d7t4q3l0lvsc73d7t870",
+      "status": "blocked",
+      "evidence": "Render still refuses the old service repair deploy with HTTP 400: cannot deploy suspended service. Service list shows suspended: suspended, suspenders: stuck_crashlooping. The fixed active replacement is srv-d8cc4857vvec73fkjnmg."
     }
   ],
   "falseReadyClaimsBlocked": true,
