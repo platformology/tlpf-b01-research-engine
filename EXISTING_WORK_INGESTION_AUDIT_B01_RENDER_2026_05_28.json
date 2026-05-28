@@ -108,8 +108,8 @@
     {
       "id": "render_service_suspended",
       "classification": "blocked_external_dependency",
-      "status": "in_progress",
-      "evidence": "Render service srv-d7t4q3l0lvsc73d7t870 is suspended/stuck_crashlooping before redeploy."
+      "status": "blocked_by_render_system_suspension",
+      "evidence": "Render service srv-d7t4q3l0lvsc73d7t870 is suspended/stuck_crashlooping. Render CLI deploy returns 'cannot deploy suspended service'. Render API POST /v1/services/srv-d7t4q3l0lvsc73d7t870/resume returns HTTP 400: only services suspended by a user can be resumed. Live endpoint returns HTTP 503 x-render-routing: suspend-by-user."
     }
   ],
   "newCodeAllowedOnlyFor": [
@@ -162,6 +162,26 @@
     {
       "command": "curl http://127.0.0.1:8781/api/status",
       "status": "passed"
+    },
+    {
+      "command": "git push origin main",
+      "status": "passed",
+      "evidence": "Pushed platformology/tlpf-b01-research-engine main to commit 95e7f60."
+    },
+    {
+      "command": "render deploys create srv-d7t4q3l0lvsc73d7t870",
+      "status": "blocked",
+      "evidence": "Render refused deploy for suspended service: cannot deploy suspended service."
+    },
+    {
+      "command": "POST https://api.render.com/v1/services/srv-d7t4q3l0lvsc73d7t870/resume",
+      "status": "blocked",
+      "evidence": "Render refused resume for crash-loop/system suspension: only services suspended by a user can be resumed."
+    },
+    {
+      "command": "curl https://tlpf-b01-research-engine.onrender.com/api/health",
+      "status": "blocked",
+      "evidence": "HTTP 503 Service Suspended from Render routing layer before application code runs."
     }
   ],
   "falseReadyClaimsBlocked": true,
