@@ -1,0 +1,21 @@
+# Reassembled bundle. The Dockerfile builds this at image-build time by
+# concatenating deploy_bundle_source.tgz.part-*. It must never be committed:
+# it would double the repository for zero benefit.
+deploy_bundle_source.tgz
+overlay_bundle.tgz
+
+# Extracted payload. `tar -xzf deploy_bundle_source.tgz` unpacks a directory
+# whose name matches this repository, which makes an accidental `git add -A`
+# commit the entire 203 MB payload as loose files.
+/tlpf-b01-research-engine/
+
+# Dependency trees. The Dockerfile reinstalls these with
+# `npm install --omit=dev`, so a committed copy is dead weight.
+node_modules/
+
+# Python bytecode. The runtime image is node:20-alpine and ships no
+# interpreter, so a .pyc can never be loaded from this tree.
+__pycache__/
+*.pyc
+
+.DS_Store
